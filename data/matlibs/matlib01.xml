@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : matlib01.xml.xml
+    Created on : 2009. augusztus 25., 10:48
+    Author     : max
+    Description:
+        Purpose of the document follows.
+-->
+
+<matlib>
+    <details>
+        <name>test matlib</name>
+        <description><![CDATA[
+            First material libraly
+            Contain test materials]]>
+        </description>
+    </details>
+    <materials>
+        <material id="haz">
+            <name><![CDATA[Kőház]]></name>
+            <properties ambient="0;0;0;0"
+                        diffuse="0;0;0;0"
+                        specular="0;0;0;0"
+                        emission="0;0;0;0"
+                        shininess="10.0"/>
+            <texture src="data/texture/hause.jpg" 
+                     filter="mipmap" />
+            <vertexshader></vertexshader>
+            <fragmentshader></fragmentshader>
+        </material>
+        <material id="zold_fu">
+            <name><![CDATA[Zöld fű]]></name>
+            <properties ambient="10;0;0;1"
+                        diffuse="0;1;0;1"
+                        specular="0;0;1;1"
+                        emission="0;0;0;1"
+                        shininess="100.0"/>
+            <texture src="data/texture/grass.jpg"
+                     filter="mipmap" />
+            <vertexshader></vertexshader>
+            <fragmentshader></fragmentshader>
+        </material>
+        <material id="robot_tex">
+            <name><![CDATA[Shader teszt]]></name>
+            <properties ambient="1;1;1;1"
+                        diffuse="1;1;1;1"
+                        specular="0;0;0;1"
+                        emission="0;0;0;1"
+                        shininess="1.0"/>
+            <texture src="data/texture/robot.jpg"
+                     filter="mipmap" />
+            <vertexshader>
+                <![CDATA[
+/* -------------------------------------------------------
+
+This shader implements a point light per pixel using  the
+diffuse, specular, and ambient terms acoording to "Mathematics of Lighthing"
+as found in the book "OpenGL Programming Guide" (aka the Red Book)
+
+Antonio Ramires Fernandes
+
+--------------------------------------------------------- */
+
+varying vec4 diffuse,ambientGlobal,ambient;
+varying vec3 normal,lightDir,halfVector;
+varying float dist;
+
+void main()
+{
+	vec4 ecPos;
+	vec3 aux;
+
+	/* first transform the normal into eye space and normalize the result */
+	normal = normalize(gl_NormalMatrix * gl_Normal);
+
+	/* now normalize the light's direction. Note that according to the
+	OpenGL specification, the light is stored in eye space. Also since
+	we're talking about a directional light, the position field is actually
+	direction */
+	ecPos = gl_ModelViewMatrix * gl_Vertex;
+	aux = vec3(gl_LightSource[0].position-ecPos);
+	lightDir = normalize(aux);
+
+	/* compute the distance to the light source to a varying variable*/
+	dist = length(aux);
+
+	/* Normalize the halfVector to pass it to the fragment shader */
+	halfVector = normalize(gl_LightSource[0].halfVector.xyz);
+
+	/* Compute the diffuse, ambient and globalAmbient terms */
+	diffuse = gl_FrontMaterial.diffuse * gl_LightSource[0].diffuse;
+	ambient = gl_FrontMaterial.ambient * gl_LightSource[0].ambient;
+	ambientGlobal = gl_LightModel.ambient * gl_FrontMaterial.ambient;
+
+
+	gl_Position = ftransform();
+
+
+
+
+
+}
+
+
+                ]]>
+            </vertexshader>
+            <fragmentshader>
+                <![CDATA[
+/* -------------------------------------------------------
+
+This shader implements a point light per pixel using  the
+diffuse, specular, and ambient terms acoording to "Mathematics of Lighthing"
+as found in the book "OpenGL Programming Guide" (aka the Red Book)
+
+Antonio Ramires Fernandes
+
+--------------------------------------------------------- */
+
+varying vec4 diffuse,ambientGlobal, ambient;
+varying vec3 normal,lightDir,halfVector;
+varying float dist;
+
+
+void main()
+{
+	vec3 n,halfV,viewV,ldir;
+	float NdotL,NdotHV;
+	vec4 color = ambientGlobal;
+	float att;
+
+	/* a fragment shader can't write a verying variable, hence we need
+	a new variable to store the normalized interpolated normal */
+	n = normalize(normal);
+
+	/* compute the dot product between normal and ldir */
+	NdotL = max(dot(n,normalize(lightDir)),0.0);
+
+	if (NdotL > 0.0) {
+
+		att = 1.0 / (gl_LightSource[0].constantAttenuation +
+				gl_LightSource[0].linearAttenuation * dist +
+				gl_LightSource[0].quadraticAttenuation * dist * dist);
+		color += att * (diffuse * NdotL + ambient);
+
+
+		halfV = normalize(halfVector);
+		NdotHV = max(dot(n,halfV),0.0);
+		color += att * gl_FrontMaterial.specular * gl_LightSource[0].specular * pow(NdotHV,gl_FrontMaterial.shininess);
+	}
+
+	gl_FragColor = color;
+}
+
+
+                ]]>
+            </fragmentshader>
+        </material>
+        <material id="toonshade">
+            <name><![CDATA[Shader teszt]]></name>
+            <properties ambient="10;0;0;1"
+                        diffuse="0;1;0;1"
+                        specular="0;0;1;1"
+                        emission="0;0;0;1"
+                        shininess="100.0"/>
+            <texture src="data/texture/robot.jpg"
+                     filter="mipmap" />
+            <vertexshader>
+                <![CDATA[
+                    varying vec3 normal;
+
+                    void main(){
+                        normal = gl_NormalMatrix * gl_Normal;
+                        gl_Position = ftransform();
+                    }
+                ]]>
+
+            </vertexshader>
+            <fragmentshader>
+                <![CDATA[
+                    varying vec3 normal;
+
+                    void main(){
+                        float intensity;
+                        vec4 color;
+                        vec3 n = normalize(normal);
+
+                        intensity = dot(vec3(gl_LightSource[0].position),n);
+
+                        if (intensity > 0.95)
+                            color = vec4(1.0,0.5,0.5,1.0);
+                        else if (intensity > 0.5)
+                            color = vec4(0.6,0.3,0.3,1.0);
+                        else if (intensity > 0.25)
+                            color = vec4(0.4,0.2,0.2,1.0);
+                        else
+                            color = vec4(0.2,0.1,0.1,1.0);
+
+                        gl_FragColor = color;
+                    }
+                ]]>
+            </fragmentshader>
+        </material>
+    </materials>
+</matlib>

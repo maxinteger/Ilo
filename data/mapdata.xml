@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : mapdata.xml
+    Createdn   : 2009. augusztus 3., 19:25
+    Author     : max
+    Description:
+        Ilo 3D engine Map XML ~ .xim
+
+-->
+
+<map version="1.0">
+    <details>
+        <mapid>test01</mapid>
+        <mapname><![CDATA[Test map]]></mapname>
+        <maptype>test</maptype>
+        <startpos>
+            <pos id="spos_01" coord="0.0;0.0;0.0" angle="0.0;0.0;0.0"/>
+        </startpos>
+    </details>
+    <geometries>
+        <geometry id="geomMap" 
+                  src="data/model/map.ase"
+                  format="ase"/>
+        <geometry id="geomHotel"
+                  src="data/model/hotelmap.ase"
+                  format="ase"/>
+        <geometry id="geomHouse"
+                  src="data/model/house.ase"
+                  format="ase"/>
+        <geometry id="geomRobot"
+                  src="data/model/robi.ase"
+                  format="ase"/>
+    </geometries>
+    <matlibs>
+        <matlib id="matlib01" src="data/matlibs/matlib01.xml" />
+    </matlibs>
+    <environment>
+        <syk id="skybox" texture="matlib.skybox" />
+        <fog mode="" start="" end="" density="" rgba=";;;"></fog>
+    </environment>
+    <mapobjects>
+        <object id="main"   
+                geometry="geomMap.map"
+                visible="1"
+                hittest="0"
+                coord="0;0;0"
+                angle="0;0;0"
+                scale="1;1;1"
+                texture="matlib01.zold_fu"
+                shadow="0" />
+        <!--<object id="right"  
+                geometry="geomHouse.house"
+                visible="1"
+                hittest="0"
+                coord="-10;0;0"
+                angle="0;0;0"
+                scale=".1;.1;.1"
+                texture="matlib01.haz"
+                shadow="1" />-->
+        <object id="left"   
+                geometry="geomHouse.house"
+                visible="1"
+                hittest="0"
+                coord="-15;0;0"
+                angle="0;0;0"
+                scale=".1;.1;.1"
+                texture="matlib01.haz"
+                shadow="1" />
+        <object id="middle1"
+                geometry="geomHouse.house"
+                visible="1"
+                hittest="0"
+                coord="15;0;0"
+                angle="0;0;0"
+                scale=".1;.1;.1"
+                texture="matlib01.haz"
+                shadow="1"  />
+        <object id="robot"
+                geometry="geomRobot.robi"
+                visible="1"
+                hittest="0"
+                coord="-1;0;0"
+                angle="0;0;-90"
+                scale=".03;.03;.03"
+                texture="matlib01.toonshade"
+                shadow="1"  />
+    </mapobjects>
+    <entitis>
+        <enttity id="" type="" coord="" angle=";;">
+            <health>100</health>
+        </enttity>
+    </entitis>
+    <items>
+        <item id="" type="" coord=";;" respawn_time="" />
+    </items>
+    <lights>
+        <light id="" type="" coord=";;" angle=";;" rgba=";;;">
+            <inclusion></inclusion>
+        </light>
+    </lights>
+    <sounds>
+        <snd id="" src="" coord=";;"/>
+    </sounds>
+</map>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : config.xml
+    Created on : 2009. október 2., 9:37
+    Author     : max
+    Description:
+        Az engine alapvető beállíasait tartalmazó
+        konfigurációs fájl
+
+        Kategorizált név-érték párokból épül fel
+        Az értékek a következő típusúak lehetnek:
+            - bool      : Logikai érték true vagy false
+            - int       : egész számérték
+            - float     : lebegőpontos számérték
+            - string    : szöveg
+-->
+
+<iloconfig>
+    <category name="base">
+        <item name="libraly_init"   value="True" type="bool" />
+    </category>
+    <category name="system">
+        <item name="stencil_bits"   value="8"    type="int"/>
+    </category>
+    <category name="engine"></category>
+    <category name="render">
+        <item name="bitmaptexture"  value="true" type="bool" />
+        <item name="shaders"        value="true" type="bool" />
+    </category>
+    <category name="camera"></category>
+    <category name="show"></category>
+    <category name="resource">
+        <item name="fontmap"        value="data/texture/fonts/nehe.bmp" type="string"/>
+    </category>
+</iloconfig>
