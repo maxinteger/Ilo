@@ -15,3 +15,5 @@ How to run (Ubuntu Linux):
   * For the OpenGLContext testing/demo environment... `easy_install OpenGLContext-full`
 * Install PyQt 4 OpenGL (python-qt4-gl) and all dependencies
 * Run... python Ilo/src/game.py
+
+[Original repository](http://code.google.com/p/ilo/)
