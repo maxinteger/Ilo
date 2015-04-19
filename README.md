@@ -14,13 +14,12 @@ How to run (Ubuntu Linux):
 * Activate virtualenv: `. .venv/bin/activate`
 * Install pip packages: `pip install -r requrements.txt`
 * Install PIL: [install 1](http://stackoverflow.com/questions/13992214/how-to-import-a-globally-installed-package-to-virtualenv-folder) [install2](http://stackoverflow.com/questions/20060096/installing-pil-with-pip)
-
-	sudo apt-get install python-dev libjpeg-dev libjpeg8-dev libpng3 libfreetype6-dev
-	sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib
-	sudo ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib
-	sudo ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib
-	sudo ln -s /usr/include/freetype2 /freetype
-	pip install PIL  --allow-unverified PIL --allow-all-external
+	* `sudo apt-get install python-dev libjpeg-dev libjpeg8-dev libpng3 libfreetype6-dev`
+	* `sudo ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib`
+	* `sudo ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib`
+	* `sudo ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib`
+	* `sudo ln -s /usr/include/freetype2 /freetype`
+	* `pip install PIL  --allow-unverified PIL --allow-all-external`
 
 * Run... `python Ilo/src/game.py`
 
