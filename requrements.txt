@@ -1,0 +1,7 @@
+numpy==1.5
+OpenGLContext==2.3.0b1
+OpenGLContext-full==3.1.0b1
+#PIL==1.1.7
+pygame==1.9.1release
+PyOpenGL==3.0.2
+PyOpenGL-accelerate==3.0.2

@@ -15,7 +15,6 @@ __all__ = ["Gfx", "GLContext", "Viewport"]
 
 
 import math
-from OpenGL.raw.GL.constants import *
 from OpenGL.raw.GL import *
 
 from OpenGL.GL import *
@@ -100,7 +99,7 @@ class GfxContext(object):
             return cls._instance
         else:
             raise SingletonClassError("Csak egyszer példányosítható!")
-        
+
     def __init__(self):
         """
         GfxContext inicilializálása
@@ -156,7 +155,7 @@ class GLContext(GfxContext):
 
     def __init__(self, IOContext=None):
         GfxContext.__init__(self)
-        
+
         self.__view = Viewport()
         self.__matrix = GLContext.GfxMatrix()
         self.__currTextureUnit = Gfx.TEXTURE_UNIT_0
@@ -170,7 +169,7 @@ class GLContext(GfxContext):
         self.normalmap_vshader = None
 
         Text()
-    
+
     @property
     def matrix(self):
         return self.__matrix
@@ -254,7 +253,7 @@ class GLContext(GfxContext):
         glClearColor(0.0, 0.0, 0.0, 1.0)
 
         self.matrix.loadIdentity()
-        
+
         #self.matrix.rotate(-90.0, 1.0, 0.0, 0.0)
 
     def endRendering(self):
@@ -291,7 +290,7 @@ class GLContext(GfxContext):
         Anyagminták használatának bekapcsolása
         """
         glEnable(GL_TEXTURE_2D)
-    
+
     def disableMaterials(self):
         """
         Anyagminta használatának kikapcsolása
@@ -513,7 +512,7 @@ class GLContext(GfxContext):
         def previewMatrix(self):
             GfxMatrix.__prevMatrix
 
-            
+
 
 class Viewport(object):
     """
@@ -527,7 +526,7 @@ class Viewport(object):
             return cls._instance
         else:
             raise SingletonClassError("Csak egyszer példányosítható!")
-        
+
     def __init__(self):
         """
         Viewport inicializálása

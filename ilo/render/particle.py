@@ -6,7 +6,6 @@ __date__ ="2010.04.08. 17:34:03"
 
 from random import *
 
-from OpenGL.raw.GL.constants import *
 from OpenGL.raw.GL import *
 from OpenGL.GL import *
 
@@ -54,7 +53,7 @@ class BaseParticleSystem(RenderObject):
         self.particleItem   = 0                                                 #:@ivar: Részecske displayList
         self.particleTex    = Texture(texture)                                  #:@ivar: Részecske anyagjellemző
         self.particles      = []                                                #:@ivar: Részecskék listája
-        
+
         for i in xrange(self.numOfParticle):
             self.particles.append(self.__setParticle(Particle(), i))
 
@@ -81,14 +80,14 @@ class BaseParticleSystem(RenderObject):
         glRotate(self._angle[1],0.0, 1.0, 0.0)
         glRotate(self._angle[2],0.0, 0.0, 1.0)
         glScale(*self._scale)
-        
+
         self.particleTex.bindTexture()
 
         for i in self.particles:
             if i.active :
                 if i.life > 0.0:
                     i.step()
-                    
+
                     glPushMatrix()
 
                     glTranslate(*i.coord)
@@ -202,5 +201,5 @@ class Particle(object):
         self.color.a    = self.life
 #        self.color.r    = self.life
 #        self.color.g    = self.life
-        
+
         return self.life
